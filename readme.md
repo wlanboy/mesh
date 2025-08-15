@@ -1,6 +1,9 @@
 # simple mesh setup
 create local kind cluster with istio, metallb, istio, ingress and egress gateways and http tester service to check http and dns requests
 
+## prepare debian host
+* sh debian.sh
+
 ## install cluster
 * sh cluster.sh
 
