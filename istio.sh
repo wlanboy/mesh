@@ -2,8 +2,21 @@
 
 CLUSTER_NAME="istio"
 ISTIO_VERSION="1.26.2" #https://github.com/istio/istio/releases
+$ISTIO_FOLDER="~/istio-$ISTIO_VERSION"
+ISTIO_DOWNLOAD_FILENAME="istio-$ISTIO_VERSION-linux-amd64.tar.gz"
+ISTIO_DOWNLOAD_URL="https://github.com/istio/istio/releases/download/$ISTIO_VERSION/$ISTIO_DOWNLOAD_FILENAME"
+ISTIO_DOWNLOAD_FILENAME="istio-$ISTIO_VERSION-linux-amd64.tar.gz"
 ISTIO_HELM_REPO_NAME="istio"
 ISTIO_HELM_REPO_URL="https://istio-release.storage.googleapis.com/charts"
+
+if [ ! -d "$ISTIO_FOLDER" ]; then
+    echo "Ordner $ISTIO_FOLDER existiert nicht. Lade Istio herunter..."
+    wget "$ISTIO_DOWNLOAD_URL" -O "~/$ISTIO_DOWNLOAD_FILENAME"
+    tar -xzf "~/s$ISTIO_DOWNLOAD_FILENAME"
+    echo "Istio wurde erfolgreich heruntergeladen und nach $ISTIO_FOLDER extrahiert."
+else
+    echo "Ordner $ISTIO_FOLDER existiert bereits. Kein Download erforderlich."
+fi
 
 echo "Füge das Istio Helm Repository hinzu und aktualisiere es..."
 helm repo add "${ISTIO_HELM_REPO_NAME}" "${ISTIO_HELM_REPO_URL}"
